@@ -1,5 +1,9 @@
 import { useState } from 'react'
+import { Pagination } from 'antd'
 
+import { POSTS_PER_PAGE, MAX_POSTS } from '../../constants'
+import Spinner from '../Spinner'
+import Error from '../Error'
 import { useGetArticlesQuery } from '../../services/api'
 import { formatArticles } from '../../utils'
 
@@ -8,14 +12,22 @@ import './style.css'
 
 function Posts() {
   const [currentPage, setCurrentPage] = useState(1)
-  const { data } = useGetArticlesQuery(currentPage)
+  const { data, isError, isFetching } = useGetArticlesQuery(currentPage)
   const articles = data ? formatArticles(data.articles) : []
 
-  console.log(setCurrentPage, 'setCurrentPage')
-  console.log(articles, 'articles')
+  if (isError) return <Error />
   return (
     <div className="posts">
-      <PostsList articles={articles} />
+      {isFetching ? <Spinner /> : <PostsList articles={articles} />}
+      <Pagination
+        className="posts__pagination"
+        pageSize={POSTS_PER_PAGE}
+        total={MAX_POSTS}
+        onChange={(page) => {
+          setCurrentPage(page)
+        }}
+        showSizeChanger={false}
+      />
     </div>
   )
 }

@@ -1,0 +1,21 @@
+import { Space, Typography } from 'antd'
+
+import './style.css'
+import ErrorImage from './image/error.png'
+
+const { Title, Text } = Typography
+
+function Error() {
+  return (
+    <Space className="error" direction="vertical">
+      <Title className="error__title" level={1}>
+        <img src={ErrorImage} width="50" height="50" alt="Black cat looking at you." />
+        Oops!
+      </Title>
+      <Text className="error__message-main">Sorry, an unexpected error has occured.</Text>
+      <Text className="error__message-additional">Not Found</Text>
+    </Space>
+  )
+}
+
+export default Error

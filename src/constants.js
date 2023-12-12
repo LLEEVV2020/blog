@@ -21,3 +21,41 @@ export const Endpoint = {
 }
 
 export const BASE_URL = 'https://blog.kata.academy/api'
+
+export const errorToastConfig = {
+  position: 'top-center',
+  autoClose: 3000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  progress: undefined,
+  draggable: false,
+  theme: 'light',
+  type: 'error',
+}
+
+export const successToastConfig = {
+  position: 'top-center',
+  autoClose: 3000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  progress: undefined,
+  draggable: false,
+  theme: 'light',
+  type: 'success',
+}
+
+export const warningToastConfig = {
+  position: 'top-center',
+  autoClose: 3000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  progress: undefined,
+  draggable: false,
+  theme: 'light',
+  type: 'warning',
+}
+
+export const INPUT_INVALID_CLASS = 'modal__input--invalid'

@@ -4,9 +4,10 @@ import { Button } from 'antd'
 
 import { AppRoute } from '../../constants'
 
-export default function Header() {
+export default function Header(props) {
+  const { className } = props
   return (
-    <header className={'header'}>
+    <header className={`${className} header`}>
       <div className="header__logo">
         <Link className="header__logo-link" to={AppRoute.Root}>
           Realworld Blog

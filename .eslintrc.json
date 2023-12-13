@@ -37,8 +37,8 @@
           "external",
           "internal",
           "parent",
-          "sibling",
-          "index"
+          ["index", "sibling"],
+          "object"
         ],
         "newlines-between": "always"
       }

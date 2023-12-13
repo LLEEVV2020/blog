@@ -1,6 +1,9 @@
+import { toast } from 'react-toastify'
+import { Link, Navigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { format } from 'date-fns'
-//import { AppRoute, successToastConfig, errorToastConfig } from '../../constants'
+
+import { AppRoute, successToastConfig, errorToastConfig } from '../../constants'
 
 import './style.css'
 import {
@@ -9,6 +12,7 @@ import {
   usePostLikeToArticleMutation,
 } from '../../services/api'
 import Spinner from '../Spinner'
+import { isFetchBaseQueryError, isErrorWithMessage } from '../../utils'
 
 const DATE_FROMAT = 'MMMM 	d, yyy'
 
@@ -32,7 +36,22 @@ export default function Post(props) {
 
   if (isLoading) return <Spinner />
 
-  console.log(full, fromUser, article, 'full, fromUser, article')
+  if (isSuccess) {
+    toast('The article has been successfully removed!', successToastConfig)
+    return <Navigate to={AppRoute.Articles} />
+  }
+
+  if (error) {
+    if (isFetchBaseQueryError(error)) {
+      const serverErrorObj = error.data
+      const errorMessage = `Status: ${error.status}. ${serverErrorObj.errors.message}.`
+      toast(errorMessage, errorToastConfig)
+    } else if (isErrorWithMessage(error)) {
+      toast(error.message, errorToastConfig)
+    }
+  }
+
+  console.log(fromUser, article, 'full, fromUser, article')
   console.log(date, 'date')
   console.log(
     deleteArticle,
@@ -46,8 +65,12 @@ export default function Post(props) {
   console.log(likeButtonClickHandler, 'likeButtonClickHandler')
 
   return (
-    <article className={'post'} data-testid="post">
-      fff
+    <article className={`post ${full ? 'post--full' : ''}`} data-testid="post">
+      <div className="post__header">
+        <Link to={`${AppRoute.Articles}/${article.slug}`} className="post__title">
+          {article.title}
+        </Link>
+      </div>
     </article>
   )
 }

@@ -1,6 +1,9 @@
 import { toast } from 'react-toastify'
 import { Link, Navigate } from 'react-router-dom'
+import ReactMarkdown from 'react-markdown'
+import { HeartOutlined, HeartFilled } from '@ant-design/icons'
 import { useSelector } from 'react-redux'
+import { Tag, Button, Popconfirm } from 'antd'
 import { format } from 'date-fns'
 
 import { AppRoute, successToastConfig, errorToastConfig } from '../../constants'
@@ -20,85 +23,6 @@ export default function Post(props) {
   const { full, fromUser, article } = props
   const date = format(new Date(article.createdAt), DATE_FROMAT)
   const user = useSelector((state) => state.userInfo.user)
-  const [deleteArticle, { isLoading, isSuccess, error }] = useDeleteArticleMutation()
-  const [postLikeToArticle] = usePostLikeToArticleMutation()
-  const [deleteLikeFromArticle] = useDeleteLikeFromArticleMutation()
-
-  function likeButtonClickHandler() {
-    if (!user) return
-
-    if (article.favorited) {
-      deleteLikeFromArticle(article.slug)
-    } else {
-      postLikeToArticle(article.slug)
-    }
-  }
-
-  if (isLoading) return <Spinner />
-
-  if (isSuccess) {
-    toast('The article has been successfully removed!', successToastConfig)
-    return <Navigate to={AppRoute.Articles} />
-  }
-
-  if (error) {
-    if (isFetchBaseQueryError(error)) {
-      const serverErrorObj = error.data
-      const errorMessage = `Status: ${error.status}. ${serverErrorObj.errors.message}.`
-      toast(errorMessage, errorToastConfig)
-    } else if (isErrorWithMessage(error)) {
-      toast(error.message, errorToastConfig)
-    }
-  }
-
-  console.log(fromUser, article, 'full, fromUser, article')
-  console.log(date, 'date')
-  console.log(
-    deleteArticle,
-    isLoading,
-    isSuccess,
-    error,
-    useDeleteLikeFromArticleMutation,
-    usePostLikeToArticleMutation,
-    'useDeleteArticleMutation'
-  )
-  console.log(likeButtonClickHandler, 'likeButtonClickHandler')
-
-  return (
-    <article className={`post ${full ? 'post--full' : ''}`} data-testid="post">
-      <div className="post__header">
-        <Link to={`${AppRoute.Articles}/${article.slug}`} className="post__title">
-          {article.title}
-        </Link>
-      </div>
-    </article>
-  )
-}
-/*import { toast } from 'react-toastify'
-import { Link, Navigate } from 'react-router-dom'
-import ReactMarkdown from 'react-markdown'
-import { HeartOutlined, HeartFilled } from '@ant-design/icons'
-import { Tag, Button, Popconfirm } from 'antd'
-import { format } from 'date-fns'
-
-import { AppRoute, successToastConfig, errorToastConfig } from '../../constants'
-import './style.css'
-import {
-  useDeleteArticleMutation,
-  useDeleteLikeFromArticleMutation,
-  usePostLikeToArticleMutation,
-} from '../../services/api'
-import Spinner from '../Spinner'
-import { isFetchBaseQueryError, isErrorWithMessage } from '../../utils'
-import { useAppSelector } from '../../hooks/hooks'
-
-const DATE_FROMAT = 'MMMM 	d, yyy'
-
-export default function Post(props) {
-  const { full, fromUser, article } = props
-  const date = format(new Date(article.createdAt), DATE_FROMAT)
-  const user = useAppSelector((state) => state.userInfo.user)
-
   const [deleteArticle, { isLoading, isSuccess, error }] = useDeleteArticleMutation()
   const [postLikeToArticle] = usePostLikeToArticleMutation()
   const [deleteLikeFromArticle] = useDeleteLikeFromArticleMutation()
@@ -191,4 +115,3 @@ export default function Post(props) {
     </article>
   )
 }
-*/

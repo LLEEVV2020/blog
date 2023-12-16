@@ -7,6 +7,7 @@ import PostFull from '../PostFull'
 import SignUp from '../Modal/SignUp'
 import SignIn from '../Modal/SignIn'
 import EditProfile from '../Modal/EditProfile'
+import CreateNewPost from '../CreateNewPost'
 import './App.css'
 import { AppRoute } from '../../constants'
 
@@ -22,6 +23,8 @@ function App() {
         <Route path={AppRoute.Registration} element={<SignUp className="app__modal" />} />
         <Route path={AppRoute.Login} element={<SignIn className="app__modal" />} />
         <Route path={AppRoute.Profile} element={<EditProfile className="app__modal" />} />
+        <Route path={AppRoute.NewArticle} element={<CreateNewPost className="app__create-new-post" />} />
+        <Route path={AppRoute.EditArticle} element={<CreateNewPost className="app__create-new-post" edit />} />
       </Routes>
     </div>
   )

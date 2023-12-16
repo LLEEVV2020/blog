@@ -1,11 +1,11 @@
 import { Link, useNavigate } from 'react-router-dom'
 import './style.css'
 import { Button } from 'antd'
-import { useDispatch } from 'react-redux'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { AppRoute } from '../../constants'
 import { removeUserAction } from '../../state/userReducer'
+
 import defaultAvatar from './images/defaultAvatar.png'
 
 export default function Header(props) {

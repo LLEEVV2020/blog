@@ -4,6 +4,7 @@ import { Link, Navigate } from 'react-router-dom'
 import { Input, Typography, Button } from 'antd'
 import { useForm, Controller } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
+
 import { usePostNewUserMutation } from '../../../services/api'
 import { AppRoute, INPUT_INVALID_CLASS, errorToastConfig, successToastConfig } from '../../../constants'
 import Spinner from '../../Spinner'

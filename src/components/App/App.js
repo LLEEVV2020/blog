@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router-dom'
 import 'react-toastify/dist/ReactToastify.css'
+import { ToastContainer } from 'react-toastify'
 
 import Header from '../Header'
 import Posts from '../Posts'
@@ -27,6 +28,7 @@ function App() {
         <Route path={AppRoute.NewArticle} element={<CreateNewPost className="app__create-new-post" />} />
         <Route path={AppRoute.EditArticle} element={<CreateNewPost className="app__create-new-post" edit />} />
       </Routes>
+      <ToastContainer />
     </div>
   )
 }

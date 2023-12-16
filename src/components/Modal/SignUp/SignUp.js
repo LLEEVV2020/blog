@@ -79,16 +79,6 @@ function SignUp(props) {
     postNewUser(newUser)
   }
 
-  console.log(postNewUser, error, isError, isSuccess, isLoading, data, 'postNewUser')
-  console.log(props, '======', className)
-  console.log(isFetchBaseQueryError, isErrorWithMessage, processServerError, 'isFetchBaseQueryError')
-  console.log(serverError, 'serverError')
-  console.log(dispatch, 'dispatch')
-  console.log(control, handleSubmit, setError, errors, 'errors')
-  console.log(Controller, 'Controller')
-  console.log(AppRoute, INPUT_INVALID_CLASS, errorToastConfig, 'errorToastConfig')
-  console.log(formSubmitHandler, 'formSubmitHandler')
-
   return (
     <section className={`${className} modal`}>
       <Title level={4} className="modal__title">

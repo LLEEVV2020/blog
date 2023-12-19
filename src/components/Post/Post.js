@@ -19,7 +19,7 @@ import { isFetchBaseQueryError, isErrorWithMessage } from '../../utils'
 const DATE_FROMAT = 'MMMM 	d, yyy'
 
 export default function Post(props) {
-  const { full, fromUser, article } = props
+  const { full, fromUser, article, etIsFlag } = props
   const date = format(new Date(article.createdAt), DATE_FROMAT)
   const user = useSelector((state) => state.userInfo.user)
   const [deleteArticle, { isLoading, isSuccess, error }] = useDeleteArticleMutation()
@@ -28,7 +28,7 @@ export default function Post(props) {
 
   function likeButtonClickHandler() {
     if (!user) return
-
+    if (etIsFlag) etIsFlag()
     if (article.favorited) {
       deleteLikeFromArticle(article.slug)
     } else {

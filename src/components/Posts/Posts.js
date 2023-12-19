@@ -18,16 +18,28 @@ function Posts() {
   const { data, isError, isFetching } = useGetArticlesQuery(currentPage)
   const articles = data ? formatArticles(data.articles) : []
 
+  let [isFetchFlag, etIsFetchFlag] = useState(true)
+
+  let etIsFlag = () => {
+    etIsFetchFlag(false)
+  }
+
+  const spinner = <Spinner />
+  const postsList = <PostsList articles={articles} etIsFlag={etIsFlag} />
+  let isFetch = isFetching ? spinner : postsList
+  if (isFetchFlag === false) isFetch = <PostsList articles={articles} etIsFlag={etIsFlag} />
   if (isError) return <Error />
+
   return (
     <div className="posts">
-      {isFetching ? <Spinner /> : <PostsList articles={articles} />}
+      {isFetch}
       <Pagination
         defaultCurrent={currentPage}
         className="posts__pagination"
         pageSize={POSTS_PER_PAGE}
         total={MAX_POSTS}
         onChange={(page) => {
+          etIsFetchFlag(true)
           localStorage.setItem('posts_pagination_CurrentPage', JSON.stringify(page))
           setCurrentPage(page)
         }}

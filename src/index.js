@@ -5,7 +5,6 @@ import { BrowserRouter } from 'react-router-dom'
 import { store } from './state/store'
 import './index.css'
 import App from './components/App/'
-
 const root = ReactDOM.createRoot(document.getElementById('root'))
 
 root.render(

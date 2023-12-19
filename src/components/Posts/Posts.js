@@ -11,7 +11,10 @@ import PostsList from './PostsList'
 import './style.css'
 
 function Posts() {
-  const [currentPage, setCurrentPage] = useState(1)
+  let localStorage_value = localStorage.getItem('posts_pagination_CurrentPage')
+  localStorage_value = localStorage_value ? JSON.parse(localStorage_value) : 1
+
+  const [currentPage, setCurrentPage] = useState(localStorage_value)
   const { data, isError, isFetching } = useGetArticlesQuery(currentPage)
   const articles = data ? formatArticles(data.articles) : []
 
@@ -20,10 +23,12 @@ function Posts() {
     <div className="posts">
       {isFetching ? <Spinner /> : <PostsList articles={articles} />}
       <Pagination
+        defaultCurrent={currentPage}
         className="posts__pagination"
         pageSize={POSTS_PER_PAGE}
         total={MAX_POSTS}
         onChange={(page) => {
+          localStorage.setItem('posts_pagination_CurrentPage', JSON.stringify(page))
           setCurrentPage(page)
         }}
         showSizeChanger={false}
